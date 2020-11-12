@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { buildMovieListIndex } from '../utils/searchMovieList';
 import { Movie, TheMoveDBApi } from '../utils/TheMoveDBApi';
 import { useQueryLite } from '../utils/useQueryLite';
@@ -30,7 +30,9 @@ interface LoadedAppProps {
 function LoadedApp(props: LoadedAppProps) {
   const [searchInput, setSearchInput] = useState('');
 
-  const searchMovieList = buildMovieListIndex(props.movies);
+  const searchMovieList = useMemo(() => buildMovieListIndex(props.movies), [
+    props.movies,
+  ]);
 
   const searchResults = searchMovieList(searchInput);
 
