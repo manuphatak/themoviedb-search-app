@@ -44,6 +44,7 @@
       }
     ]
   },
+  "homepage": "https://bionikspoon.github.io/themoviedb-search-app",
   "browserslist": {
     "production": [
       ">0.2%",
