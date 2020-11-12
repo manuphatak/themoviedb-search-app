@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - lts/*
+script: yarn test --coverage
 before_deploy: yarn build
 deploy:
   provider: pages
