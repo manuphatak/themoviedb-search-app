@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Route, useParams } from 'react-router-dom';
 import { TheMoveDBApi } from '../utils/TheMoveDBApi';
 import { useQueryLite } from '../utils/useQueryLite';
 import styles from './App.module.scss';
@@ -9,8 +10,20 @@ interface AppProps {
 }
 
 export function App(props: AppProps) {
+  return (
+    <BrowserRouter>
+      <Route path="/:listId?" render={() => <HomePage {...props} />} />
+    </BrowserRouter>
+  );
+}
+
+function HomePage(props: AppProps) {
+  const params = useParams<{ listId?: string }>();
+
+  const listId = params.listId ?? 1;
+
   const getList = props.getMovieList ?? TheMoveDBApi.getList;
-  const movieList = useQueryLite([1, 1], getList);
+  const movieList = useQueryLite([listId, 1], getList);
 
   if (movieList.isLoading) {
     return (

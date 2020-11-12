@@ -23,6 +23,7 @@ export class TheMoveDBApi {
 
   static getList(id: Key, page: number): Promise<MovieList> {
     const params = new URLSearchParams({ page: page.toString() });
+
     return fetch(
       `https://api.themoviedb.org/4/list/${id}?${params}`,
       TheMoveDBApi.requestOptions
