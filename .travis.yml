@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - lts/*
-predeploy: yarn build
+before_deploy: yarn build
 deploy:
   provider: pages
   skip_cleanup: true
