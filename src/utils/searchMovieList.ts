@@ -5,11 +5,16 @@ export interface SearchableMovie {
 export function buildMovieListIndex<T extends SearchableMovie>(
   movieList: T[]
 ): (needle: string) => T[] {
+  const preparedMovieList = movieList.map((movie) => ({
+    ...movie,
+    _search: movie.overview.toLowerCase(),
+  }));
+
   return function searchMovieList(needle: string) {
     const lowerCaseNeedle = needle.toLowerCase();
 
-    return movieList.filter((movie) =>
-      movie.overview.toLowerCase().includes(lowerCaseNeedle)
+    return preparedMovieList.filter((movie) =>
+      movie._search.includes(lowerCaseNeedle)
     );
   };
 }
