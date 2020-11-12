@@ -1,10 +1,15 @@
-import React, { Key, useEffect, useState } from 'react';
+import React from 'react';
+import { TheMoveDBApi } from '../utils/TheMoveDBApi';
+import { useQueryLite } from '../utils/useQueryLite';
 import styles from './App.module.scss';
 
-export function App() {
-  const movieList = useQueryLite([1, 1], TheMoveDBApi.getList);
-  // eslint-disable-next-line no-console
-  console.log('state', movieList);
+interface AppProps {
+  getMovieList?: typeof TheMoveDBApi.getList;
+}
+
+export function App(props: AppProps) {
+  const getList = props.getMovieList ?? TheMoveDBApi.getList;
+  const movieList = useQueryLite([1, 1], getList);
 
   if (movieList.isLoading) {
     // TODO: Loading screen
@@ -21,7 +26,11 @@ export function App() {
         />
 
         {movieList.data.results.map((movie) => (
-          <article key={movie.id} className={styles.MovieCard}>
+          <article
+            key={movie.id}
+            className={styles.MovieCard}
+            data-testid="movie-card"
+          >
             <img
               className={styles.poster}
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -37,55 +46,4 @@ export function App() {
       </div>
     </div>
   );
-}
-
-type MovieList = {
-  results: {
-    id: Key;
-    poster_path: string;
-    title: string;
-    overview: string;
-  }[];
-};
-
-class TheMoveDBApi {
-  static requestOptions: RequestInit = {
-    method: 'GET',
-    headers: new Headers({
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Bearer ${process.env.REACT_APP_THE_MOVIE_DB_BEARER_TOKEN}`,
-    }),
-    redirect: 'follow',
-  };
-
-  static getList(id: Key, page: number): Promise<MovieList> {
-    const params = new URLSearchParams({ page: page.toString() });
-    return fetch(
-      `https://api.themoviedb.org/4/list/${id}?${params}`,
-      TheMoveDBApi.requestOptions
-    ).then((response) => response.json());
-  }
-}
-
-type QueryResponse<T> =
-  | { isLoading: true; data: null }
-  | { isLoading: false; data: T };
-
-function useQueryLite<A extends any[], R>(
-  args: A,
-  query: (...args: A) => Promise<R>
-) {
-  const [state, setState] = useState<QueryResponse<R>>({
-    isLoading: true,
-    data: null,
-  });
-
-  useEffect(() => {
-    // TODO: catch errors
-    query(...args).then((data) => setState({ isLoading: false, data }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, args);
-
-  return state;
 }
