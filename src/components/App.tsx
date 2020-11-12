@@ -28,6 +28,7 @@ export function App(props: AppProps) {
           placeholder="Search"
           value={searchInput}
           onChange={(event) => setSearchInput(event.target.value)}
+          data-testid="search-movies-input"
         />
 
         {searchResults.map((movie) => (
@@ -43,7 +44,7 @@ export function App(props: AppProps) {
             />
 
             <div className={styles.info}>
-              <p className={styles.title}>{movie.title}</p>
+              <h2 className={styles.title}>{movie.title}</h2>
               <p className={styles.overview}>{movie.overview}</p>
             </div>
           </article>
