@@ -1,8 +1,8 @@
-export interface Movie {
+export interface SearchableMovie {
   overview: string;
 }
 
-export function searchMovieList<T extends Movie>(
+export function searchMovieList<T extends SearchableMovie>(
   movieList: T[],
   needle: string
 ): T[] {

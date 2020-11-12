@@ -9,6 +9,7 @@ A quick app to search The Movie DB.
 
 ![](./docs/images/screenshot-1.png)
 ![](./docs/images/screenshot-2.png)
+![Loading](./docs/images/screenshot-3.png)
 
 ## Up and Running
 
