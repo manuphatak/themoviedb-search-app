@@ -31,6 +31,9 @@
       "react-app",
       "react-app/jest"
     ],
+    "rules": {
+      "no-console": "error"
+    },
     "overrides": [
       {
         "files": [
