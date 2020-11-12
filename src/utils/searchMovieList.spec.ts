@@ -74,6 +74,7 @@ describe('given a list of movies', () => {
     const input = 'the';
 
     it('returns a list of matching movies', () => {
+      // console.log('searchMovieList(input)', searchMovieList(input));
       expect(searchMovieList(input).map((movie) => movie.title)).toEqual([
         'Thor: Ragnarok',
         'Spider-Man: Homecoming',
@@ -113,9 +114,18 @@ describe('given a list of movies', () => {
     const input = '';
 
     it('return everything', () => {
-      expect(searchMovieList(input).map((movie) => movie.title)).toEqual(
-        movieList.map((movie) => movie.title)
-      );
+      expect(searchMovieList(input).map((movie) => movie.title)).toEqual([
+        'Thor: Ragnarok',
+        'Doctor Strange',
+        'Logan',
+        'Spider-Man: Homecoming',
+        'Guardians of the Galaxy Vol. 2',
+        'X-Men: Apocalypse',
+        'Captain America: Civil War',
+        'Deadpool',
+        'Fantastic Four',
+        'Ant-Man',
+      ]);
     });
   });
 });
