@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { searchMovieList } from '../utils/searchMovieList';
 import { TheMoveDBApi } from '../utils/TheMoveDBApi';
 import { useQueryLite } from '../utils/useQueryLite';
 import styles from './App.module.scss';
@@ -10,11 +11,13 @@ interface AppProps {
 export function App(props: AppProps) {
   const getList = props.getMovieList ?? TheMoveDBApi.getList;
   const movieList = useQueryLite([1, 1], getList);
-
+  const [searchInput, setSearchInput] = useState('');
   if (movieList.isLoading) {
     // TODO: Loading screen
     return <>Loading</>;
   }
+
+  const searchResults = searchMovieList(movieList.data.results, searchInput);
 
   return (
     <div className={styles.container}>
@@ -23,9 +26,11 @@ export function App(props: AppProps) {
           type="search"
           className={styles.SearchInput}
           placeholder="Search"
+          value={searchInput}
+          onChange={(event) => setSearchInput(event.target.value)}
         />
 
-        {movieList.data.results.map((movie) => (
+        {searchResults.map((movie) => (
           <article
             key={movie.id}
             className={styles.MovieCard}
