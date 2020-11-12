@@ -1,5 +1,5 @@
 [![Build
-Status](https://travis-ci.com/bionikspoon/themoviedb-search-app.svg?branch=master)](https://travis-ci.com/bionikspoon/themoviedb-search-app)
+Status](https://travis-ci.com/bionikspoon/themoviedb-search-app.svg?branch=main)](https://travis-ci.com/bionikspoon/themoviedb-search-app)
 
 # Getting Started with Create React App
 
