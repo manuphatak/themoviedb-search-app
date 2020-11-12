@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.App {
+  display: flex;
+  border: 2px solid darkgray;
+  padding: 35px 50px;
+  width: 800px;
+  flex-direction: column;
+}
+
+.SearchInput {
+  border: 2px solid darkgray;
+  font-size: 20px;
+  outline: none;
+  padding: 10px;
+
+  &:focus {
+    border-color: blue;
+  }
+}
+
+.MovieCard {
+  display: flex;
+  margin-top: 20px;
+  border: 2px solid darkgray;
+  height: 200px;
+  padding: 20px;
+}
+.poster {
+  width: 200px;
+  object-fit: cover;
+}
+
+.info {
+  margin-left: 20px;
+  overflow-y: hidden;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0;
+}
+
+.overview {
+  font-size: 20px;
+  line-height: 1.5;
+}
