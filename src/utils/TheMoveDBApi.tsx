@@ -1,12 +1,14 @@
 import { Key } from 'react';
 
-interface MovieList {
-  results: {
-    id: Key;
-    poster_path: string;
-    title: string;
-    overview: string;
-  }[];
+export interface Movie {
+  id: Key;
+  poster_path: string;
+  title: string;
+  overview: string;
+}
+
+export interface MovieList {
+  results: Movie[];
 }
 
 export class TheMoveDBApi {

@@ -1,6 +1,6 @@
-import { buildMovieListIndex, Movie } from './searchMovieList';
+import { buildMovieListIndex, SearchableMovie } from './searchMovieList';
 
-interface TestMovie extends Movie {
+interface TestMovie extends SearchableMovie {
   title: string;
 }
 

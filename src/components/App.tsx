@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { buildMovieListIndex } from '../utils/searchMovieList';
-import { TheMoveDBApi } from '../utils/TheMoveDBApi';
+import { Movie, TheMoveDBApi } from '../utils/TheMoveDBApi';
 import { useQueryLite } from '../utils/useQueryLite';
 import styles from './App.module.scss';
 
@@ -24,12 +24,7 @@ export function App(props: AppProps) {
 }
 
 interface LoadedAppProps {
-  movies: {
-    id: React.Key;
-    poster_path: string;
-    title: string;
-    overview: string;
-  }[];
+  movies: Movie[];
 }
 
 function LoadedApp(props: LoadedAppProps) {
@@ -51,23 +46,28 @@ function LoadedApp(props: LoadedAppProps) {
       />
 
       {searchResults.map((movie) => (
-        <article
-          key={movie.id}
-          className={styles.MovieCard}
-          data-testid="movie-card"
-        >
-          <img
-            className={styles.poster}
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt="Poster"
-          />
-
-          <div className={styles.info}>
-            <h2 className={styles.title}>{movie.title}</h2>
-            <p className={styles.overview}>{movie.overview}</p>
-          </div>
-        </article>
+        <MovieCard key={movie.id} movie={movie} />
       ))}
     </div>
+  );
+}
+
+interface MovieCardProps {
+  movie: Movie;
+}
+function MovieCard(props: MovieCardProps): JSX.Element {
+  return (
+    <article className={styles.MovieCard} data-testid="movie-card">
+      <img
+        className={styles.poster}
+        src={`https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`}
+        alt="Poster"
+      />
+
+      <div className={styles.info}>
+        <h2 className={styles.title}>{props.movie.title}</h2>
+        <p className={styles.overview}>{props.movie.overview}</p>
+      </div>
+    </article>
   );
 }
