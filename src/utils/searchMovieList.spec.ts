@@ -1,4 +1,4 @@
-import { searchMovieList, Movie } from './searchMovieList';
+import { buildMovieListIndex, Movie } from './searchMovieList';
 
 interface TestMovie extends Movie {
   title: string;
@@ -57,13 +57,16 @@ describe('given a list of movies', () => {
         'Armed with the astonishing ability to shrink in scale but increase in strength, master thief Scott Lang must embrace his inner-hero and help his mentor, Doctor Hank Pym, protect the secret behind his spectacular Ant-Man suit from a new generation of towering threats. Against seemingly insurmountable obstacles, Pym and Lang must plan and pull off a heist that will save the world.',
     },
   ];
+
+  const searchMovieList = buildMovieListIndex(movieList);
+
   describe('when searching a unique word', () => {
     const input = 'thor';
 
     it('returns a single matching movie', () => {
-      expect(
-        searchMovieList(movieList, input).map((movie) => movie.title)
-      ).toEqual(['Thor: Ragnarok']);
+      expect(searchMovieList(input).map((movie) => movie.title)).toEqual([
+        'Thor: Ragnarok',
+      ]);
     });
   });
 
@@ -71,9 +74,7 @@ describe('given a list of movies', () => {
     const input = 'the';
 
     it('returns a list of matching movies', () => {
-      expect(
-        searchMovieList(movieList, input).map((movie) => movie.title)
-      ).toEqual([
+      expect(searchMovieList(input).map((movie) => movie.title)).toEqual([
         'Thor: Ragnarok',
         'Spider-Man: Homecoming',
         'Guardians of the Galaxy Vol. 2',
@@ -92,9 +93,9 @@ describe('given a list of movies', () => {
     const input = 'ultron';
 
     it('ignores case', () => {
-      expect(
-        searchMovieList(movieList, input).map((movie) => movie.title)
-      ).toEqual(['Captain America: Civil War']);
+      expect(searchMovieList(input).map((movie) => movie.title)).toEqual([
+        'Captain America: Civil War',
+      ]);
     });
   });
 
@@ -102,9 +103,9 @@ describe('given a list of movies', () => {
     const input = 'ULTRON';
 
     it('ignores case', () => {
-      expect(
-        searchMovieList(movieList, input).map((movie) => movie.title)
-      ).toEqual(['Captain America: Civil War']);
+      expect(searchMovieList(input).map((movie) => movie.title)).toEqual([
+        'Captain America: Civil War',
+      ]);
     });
   });
 
@@ -112,9 +113,9 @@ describe('given a list of movies', () => {
     const input = '';
 
     it('return everything', () => {
-      expect(
-        searchMovieList(movieList, input).map((movie) => movie.title)
-      ).toEqual(movieList.map((movie) => movie.title));
+      expect(searchMovieList(input).map((movie) => movie.title)).toEqual(
+        movieList.map((movie) => movie.title)
+      );
     });
   });
 });

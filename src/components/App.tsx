@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { searchMovieList } from '../utils/searchMovieList';
+import { buildMovieListIndex } from '../utils/searchMovieList';
 import { TheMoveDBApi } from '../utils/TheMoveDBApi';
 import { useQueryLite } from '../utils/useQueryLite';
 import styles from './App.module.scss';
@@ -17,7 +17,9 @@ export function App(props: AppProps) {
     return <>Loading</>;
   }
 
-  const searchResults = searchMovieList(movieList.data.results, searchInput);
+  const searchMovieList = buildMovieListIndex(movieList.data.results);
+
+  const searchResults = searchMovieList(searchInput);
 
   return (
     <div className={styles.container}>
