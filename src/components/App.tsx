@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from 'react-query-devtools';
 import {
   BrowserRouter,
   Link,
+  Redirect,
   Route,
   Switch,
   useParams,
@@ -25,6 +26,7 @@ export function App(props: AppProps) {
     <ReactQueryCacheProvider queryCache={queryCache}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
+          <Redirect exact from="/" to="/1" />
           <Route path="/:listId(\d+)" render={() => <HomePage {...props} />} />
           <Route component={FourOhFourPage} />
         </Switch>

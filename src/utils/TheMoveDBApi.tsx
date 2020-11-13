@@ -35,9 +35,9 @@ export class TheMoveDBApi {
   }
 }
 
-function rejectErrors(response: Response) {
+async function rejectErrors(response: Response) {
   if (!response.ok) {
-    throw new Error(response.statusText);
+    throw new Error(await response.text());
   }
   return response;
 }
