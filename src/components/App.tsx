@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
-import {
-  QueryCache,
-  ReactQueryCacheProvider,
-  useInfiniteQuery,
-} from 'react-query';
+import React from 'react';
+import { QueryCache, ReactQueryCacheProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query-devtools';
-import { BrowserRouter, Link, Route, useParams } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Switch,
+  useParams,
+} from 'react-router-dom';
 import { TheMoveDBApi } from '../utils/TheMoveDBApi';
+import { toNumber } from '../utils/toNumber';
+import { useMovieLists } from '../utils/useMovieLists';
 import styles from './App.module.scss';
 import { LoadedApp, LoadedAppSkeleton } from './LoadedApp';
 
 interface AppProps {
   getMovieList?: typeof TheMoveDBApi.getList;
-}
-
-interface ControlPanelProps {
-  listId: number;
-  fetchMore: () => void;
 }
 
 const queryCache = new QueryCache();
@@ -25,7 +24,10 @@ export function App(props: AppProps) {
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Route path="/:listId?" render={() => <HomePage {...props} />} />
+        <Switch>
+          <Route path="/:listId(\d+)" render={() => <HomePage {...props} />} />
+          <Route component={FourOhFourPage} />
+        </Switch>
       </BrowserRouter>
       <ReactQueryDevtools />
     </ReactQueryCacheProvider>
@@ -33,82 +35,70 @@ export function App(props: AppProps) {
 }
 
 function HomePage(props: AppProps) {
-  const params = useParams<{ listId?: string }>();
-
-  const listId = toNumber(params.listId, 1);
-
   const getList = props.getMovieList ?? TheMoveDBApi.getList;
-  const movieLists = useAllPages(listId, getList);
+  const movieLists = useMovieLists(getList);
 
-  if (movieLists.isLoading || movieLists.isError) {
-    return (
-      <div className={styles.App}>
-        <LoadedAppSkeleton isError={movieLists.isError} />
-        <ControlPanel listId={listId} fetchMore={movieLists.fetchMore} />
-      </div>
-    );
+  if (movieLists.isLoading) {
+    return <LoadingPage />;
   }
 
-  const movies = movieLists.data!.map((movieList) => movieList.results).flat();
+  if (movieLists.isError) {
+    return <FiveHundredPage />;
+  }
+
+  const movies = movieLists.data!.flatMap((movieList) => movieList.results);
   return (
     <div className={styles.App}>
       <LoadedApp movies={movies} />
-      <ControlPanel listId={listId} fetchMore={movieLists.fetchMore} />
+      <ControlPanel />
     </div>
   );
 }
 
-function useAllPages(listId: number, getList: typeof TheMoveDBApi.getList) {
-  const movieLists = useInfiniteQuery(['movieList', listId], getList, {
-    staleTime: 60 * 5 * 1000,
-    cacheTime: Infinity,
-    getFetchMore: (lastGroup) => {
-      if (lastGroup.page >= lastGroup.total_pages) {
-        return;
-      }
-
-      return lastGroup.page + 1;
-    },
-  });
-
-  useEffect(() => {
-    if (movieLists.canFetchMore && !movieLists.isFetchingMore) {
-      movieLists.fetchMore();
-    }
-  }, [movieLists]);
-
-  return movieLists;
+function LoadingPage() {
+  return (
+    <div className={styles.App}>
+      <LoadedAppSkeleton message="" />
+      <ControlPanel />
+    </div>
+  );
+}
+function FiveHundredPage() {
+  return (
+    <div className={styles.App}>
+      <LoadedAppSkeleton isError message="Something went wrong" />
+      <ControlPanel />
+    </div>
+  );
+}
+function FourOhFourPage() {
+  return (
+    <div className={styles.App}>
+      <LoadedAppSkeleton isError message="Page Not Found" />
+      <ControlPanel />
+    </div>
+  );
 }
 
-function ControlPanel(props: ControlPanelProps) {
+function ControlPanel() {
+  const params = useParams<{ listId?: string }>();
+  const listId = toNumber(params.listId, 1);
+
+  const toRandomList = `/${Math.max(1, Math.floor(Math.random() * 10000))}`;
+  const toNextList = `/${listId + 1}`;
+  const toPrevList = `/${Math.max(1, listId - 1)}`;
+
   return (
     <div className={styles.Panel}>
-      <Link to={`/${props.listId + 1}`} className={styles.PanelButton}>
+      <Link to={toNextList} className={styles.PanelButton}>
         +
       </Link>
-      <Link
-        to={`/${Math.max(1, Math.floor(Math.random() * 10000))}`}
-        className={styles.PanelButton}
-      >
+      <Link to={toRandomList} className={styles.PanelButton}>
         ?
       </Link>
-      <Link
-        to={`/${Math.max(1, props.listId - 1)}`}
-        className={styles.PanelButton}
-      >
+      <Link to={toPrevList} className={styles.PanelButton}>
         -
       </Link>
     </div>
   );
-}
-
-function toNumber(value: string | undefined, fallback: number): number {
-  if (value === undefined) {
-    return fallback;
-  }
-  try {
-    return parseInt(value, 10);
-  } catch (_error) {
-    return fallback;
-  }
 }

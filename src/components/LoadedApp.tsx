@@ -32,7 +32,8 @@ export function LoadedApp(props: LoadedAppProps) {
 }
 
 interface LoadedAppSkeletonProps {
-  isError: boolean;
+  isError?: boolean;
+  message: string;
 }
 
 export function LoadedAppSkeleton(props: LoadedAppSkeletonProps) {
@@ -42,7 +43,7 @@ export function LoadedAppSkeleton(props: LoadedAppSkeletonProps) {
         type="search"
         className={styles.SearchInput}
         disabled
-        value={props.isError ? 'Something went wrong' : ''}
+        value={props.message}
       />
       <MovieCardSkeleton />
       <MovieCardSkeleton />
