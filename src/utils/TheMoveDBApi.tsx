@@ -9,6 +9,8 @@ export interface Movie {
 
 interface MovieList {
   results: Movie[];
+  page: number;
+  total_pages: number;
 }
 
 export class TheMoveDBApi {
@@ -21,7 +23,7 @@ export class TheMoveDBApi {
     redirect: 'follow',
   };
 
-  static getList(id: Key, page: number): Promise<MovieList> {
+  static getList(_key: string, id: Key, page: number = 1): Promise<MovieList> {
     const params = new URLSearchParams({ page: page.toString() });
 
     return fetch(
