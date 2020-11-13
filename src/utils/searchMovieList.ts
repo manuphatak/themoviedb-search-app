@@ -8,6 +8,9 @@ export function searchMovieList<T extends SearchableMovie>(
 ): T[] {
   const lowerCaseNeedle = needle.toLowerCase();
   return movieList.filter((movie) =>
-    movie.overview.toLowerCase().includes(lowerCaseNeedle)
+    movie.overview
+      .toLowerCase()
+      .replace(/[^\w\d\s]/gm, '')
+      .includes(lowerCaseNeedle)
   );
 }
