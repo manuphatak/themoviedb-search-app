@@ -4,6 +4,14 @@
   padding: 35px 50px;
   width: 800px;
   flex-direction: column;
+
+  &.error {
+    .SearchInput {
+      color: red;
+      text-align: center;
+      border-color: red;
+    }
+  }
 }
 
 .SearchInput {

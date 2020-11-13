@@ -27,6 +27,15 @@ export class TheMoveDBApi {
     return fetch(
       `https://api.themoviedb.org/4/list/${id}?${params}`,
       TheMoveDBApi.requestOptions
-    ).then((response) => response.json());
+    )
+      .then(rejectErrors)
+      .then((response) => response.json());
   }
+}
+
+function rejectErrors(response: Response) {
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response;
 }

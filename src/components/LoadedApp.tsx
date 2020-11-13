@@ -3,7 +3,7 @@ import { searchMovieList } from '../utils/searchMovieList';
 import { Movie } from '../utils/TheMoveDBApi';
 import styles from './LoadedApp.module.scss';
 import { MovieCard, MovieCardSkeleton } from './MovieCard';
-
+import cx from 'classnames';
 interface LoadedAppProps {
   movies: Movie[];
 }
@@ -31,10 +31,19 @@ export function LoadedApp(props: LoadedAppProps) {
   );
 }
 
-export function LoadedAppSkeleton() {
+interface LoadedAppSkeletonProps {
+  isError: boolean;
+}
+
+export function LoadedAppSkeleton(props: LoadedAppSkeletonProps) {
   return (
-    <div className={styles.LoadedApp}>
-      <input type="search" className={styles.SearchInput} disabled />
+    <div className={cx(styles.LoadedApp, { [styles.error]: props.isError })}>
+      <input
+        type="search"
+        className={styles.SearchInput}
+        disabled
+        value={props.isError ? 'Something went wrong' : ''}
+      />
       <MovieCardSkeleton />
       <MovieCardSkeleton />
       <MovieCardSkeleton />
