@@ -34,7 +34,7 @@
       "react-app/jest"
     ],
     "rules": {
-      "no-console": "error",
+      "no-console": "warn",
       "react/self-closing-comp": "error"
     },
     "overrides": [

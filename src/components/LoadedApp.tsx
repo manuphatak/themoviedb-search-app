@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { searchMovieList } from '../utils/searchMovieList';
+import React, { useMemo, useState } from 'react';
+import { buildMovieListIndex } from '../utils/searchMovieList';
 import { Movie } from '../utils/TheMoveDBApi';
 import styles from './LoadedApp.module.scss';
 import { MovieCard, MovieCardSkeleton } from './MovieCard';
@@ -11,7 +11,11 @@ interface LoadedAppProps {
 export function LoadedApp(props: LoadedAppProps) {
   const [searchInput, setSearchInput] = useState('');
 
-  const searchResults = searchMovieList(props.movies, searchInput);
+  const searchMovieList = useMemo(() => buildMovieListIndex(props.movies), [
+    props.movies,
+  ]);
+
+  const searchResults = searchMovieList(searchInput);
 
   return (
     <div className={styles.LoadedApp}>
