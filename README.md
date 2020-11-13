@@ -11,6 +11,7 @@ A quick app to search The Movie DB.
 ![](./docs/images/screenshot-2.png)
 ![Loading](./docs/images/screenshot-3.png)
 ![Error](./docs/images/screenshot-4.png)
+![Navigation](./docs/images/screenshot-5.png)
 
 ## Up and Running
 
