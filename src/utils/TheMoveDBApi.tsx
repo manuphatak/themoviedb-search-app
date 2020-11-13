@@ -7,7 +7,7 @@ export interface Movie {
   overview: string;
 }
 
-export interface MovieList {
+interface MovieList {
   results: Movie[];
 }
 

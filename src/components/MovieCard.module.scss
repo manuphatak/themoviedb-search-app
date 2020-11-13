@@ -1,0 +1,49 @@
+.MovieCard {
+  display: flex;
+  margin-top: 20px;
+  border: 2px solid darkgray;
+  height: 200px;
+  padding: 20px;
+  background-color: white;
+
+  &.skeleton {
+    .poster {
+      border: 2px solid darkgray;
+    }
+
+    .title {
+      border: 2px solid darkgray;
+      flex-basis: 1.2em;
+    }
+
+    .overview {
+      border: 2px solid darkgray;
+    }
+  }
+}
+.poster {
+  width: 200px;
+  object-fit: cover;
+}
+
+.info {
+  margin-left: 20px;
+  overflow-y: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+}
+
+.overview {
+  font-size: 20px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  flex: 1;
+}

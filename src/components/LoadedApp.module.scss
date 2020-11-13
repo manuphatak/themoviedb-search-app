@@ -1,0 +1,19 @@
+.LoadedApp {
+  display: flex;
+  border: 2px solid darkgray;
+  padding: 35px 50px;
+  width: 800px;
+  flex-direction: column;
+}
+
+.SearchInput {
+  border: 2px solid darkgray;
+  font-size: 20px;
+  outline: none;
+  padding: 10px;
+  background-color: white;
+
+  &:focus {
+    border-color: blue;
+  }
+}
