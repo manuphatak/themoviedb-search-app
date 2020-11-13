@@ -24,7 +24,7 @@ const queryCache = new QueryCache();
 export function App(props: AppProps) {
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Route path="/:listId?" render={() => <HomePage {...props} />} />
       </BrowserRouter>
       <ReactQueryDevtools />
