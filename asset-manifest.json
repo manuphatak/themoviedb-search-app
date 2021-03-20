@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/themoviedb-search-app/static/css/main.514c4ace.chunk.css",
+    "main.js": "/themoviedb-search-app/static/js/main.ce3e61bb.chunk.js",
+    "main.js.map": "/themoviedb-search-app/static/js/main.ce3e61bb.chunk.js.map",
+    "runtime-main.js": "/themoviedb-search-app/static/js/runtime-main.2bd3fbfa.js",
+    "runtime-main.js.map": "/themoviedb-search-app/static/js/runtime-main.2bd3fbfa.js.map",
+    "static/js/2.b028c172.chunk.js": "/themoviedb-search-app/static/js/2.b028c172.chunk.js",
+    "static/js/2.b028c172.chunk.js.map": "/themoviedb-search-app/static/js/2.b028c172.chunk.js.map",
+    "static/js/3.12959819.chunk.js": "/themoviedb-search-app/static/js/3.12959819.chunk.js",
+    "static/js/3.12959819.chunk.js.map": "/themoviedb-search-app/static/js/3.12959819.chunk.js.map",
+    "index.html": "/themoviedb-search-app/index.html",
+    "static/css/main.514c4ace.chunk.css.map": "/themoviedb-search-app/static/css/main.514c4ace.chunk.css.map",
+    "static/js/2.b028c172.chunk.js.LICENSE.txt": "/themoviedb-search-app/static/js/2.b028c172.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2bd3fbfa.js",
+    "static/js/2.b028c172.chunk.js",
+    "static/css/main.514c4ace.chunk.css",
+    "static/js/main.ce3e61bb.chunk.js"
+  ]
+}
