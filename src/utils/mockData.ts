@@ -56,7 +56,7 @@ export const MOVIE_LIST = {
     'movie:99861': '4f7a4487760ee35b970086f0',
   },
   revenue: 22376320295,
-  total_pages: 3,
+  total_pages: 1,
   name: 'The Marvel Universe',
   public: true,
   comments: {
